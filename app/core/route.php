@@ -22,10 +22,10 @@ class Route
         $controller_name = 'Controller_' . $controller_name;
         $action_name = 'action_' . $action_name;
 
-        $controller_file = strtolower($controller_name) . '.php';
+        $controller_file = $controller_name . '.php';
         $controller_path = 'app/controllers/' . $controller_file;
 
-        if ( file_exists($controller_file) )
+        if ( file_exists($controller_path) )
         {
             include $controller_path;
         }
