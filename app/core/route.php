@@ -18,7 +18,13 @@ class Route
             $action_name = $routes[2];
         }
 
-        $model_name = 'Model_' . $controller_name;
+        $models = self::getAllFiles('app/models/');
+        if($models)
+        foreach ($models as $model)
+        {
+            include $model;
+        }
+        
         $controller_name = 'Controller_' . $controller_name;
         $action_name = 'action_' . $action_name;
 
@@ -32,6 +38,11 @@ class Route
         else
         {
             Route::ErrorPage404();
+        }
+
+        if (!class_exists($controller_name))
+        {
+            return;
         }
 
         $controller = new $controller_name;
@@ -53,5 +64,32 @@ class Route
         header('HTTP/1.1 404 Not Found');
         header('Status: 404 Not Found');
         header('Location: ' . $host . '404');
+    }
+
+    private static function getAllFiles($dir)
+    {
+        $arr = array();
+        if ($handle = opendir($dir)) {
+
+            while (false !== ($entry = readdir($handle))) {
+        
+                if ($entry != "." && $entry != "..") {
+                    if (is_file($dir . '/' . $entry))
+                    {
+                        if (preg_match('/.+\.php/', $entry))
+                        {
+                            array_push($arr, $dir . '/' . $entry);
+                        }
+                    }
+                    if (is_dir($dir. '/' .$entry))
+                    {
+                        self::getAllFiles($dir . '/' . $entry);
+                    }
+                }
+            }
+        
+            closedir($handle);
+        }
+        return $arr;
     }
 }
