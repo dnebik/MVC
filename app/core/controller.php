@@ -6,7 +6,7 @@ class Controller
 
     function __construct()
     {
-        $this->view = new View(strtolower(get_class($this)));
+        $this->view = new View( strtolower( str_replace( 'Controller_', '', get_class($this) )) );
     }
 
     function action_index()
