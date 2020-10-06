@@ -6,7 +6,7 @@ class Route
         $controller_name = 'Main';
         $action_name = 'index';
 
-        $routes = explode('/', $_SERVER['REQ']);
+        $routes = explode('/', $_SERVER['REQUEST_URI']);
 
         if ( !empty($routes[1]) )
         {
