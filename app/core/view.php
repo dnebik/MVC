@@ -9,7 +9,7 @@ class View
         $this->controller_name = $controller_name;
     }
 
-    public function render($content, $layout = 'main', $data = null)
+    public function render($content, $data = null, $layout = 'main')
     {
         $layout = 'app/views/layouts/' . $layout . '.php';
         $content = 'app/views/' . $this->controller_name . '/' . $content . '.php';
