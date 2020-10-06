@@ -12,13 +12,13 @@ class View
     public function render($content, $layout = 'main', $data = null)
     {
         $layout = 'app/views/layouts/' . $layout . '.php';
-        $this->controller_name = 'app/views/' . $this->controller_name . '/' . $content . '.php';
+        $content = 'app/views/' . $this->controller_name . '/' . $content . '.php';
 
         if (is_array($data))
         {
             extract($data);
         }
 
-        include 'app/views/' . $this->controller_name . '/' . $layout;
+        include $layout;
     }
 }
